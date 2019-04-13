@@ -1,55 +1,49 @@
-<template>
-  <div>
-    <nuxt />
-  </div>
+<template lang="pug">
+  .site
+    nav.nav
+      .nav__container
+        .nav__logo
+          | SS
+        .nav__links
+          a.nav__link( href="/my-spots" ) My Spots
+          a.nav__link( href="/account" ) Account
+    nuxt
 </template>
 
-<style>
-html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-}
+<style lang="sass">
+  html
+    font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif
+    font-size: 16px
+    word-spacing: 1px
+    -ms-text-size-adjust: 100%
+    -webkit-text-size-adjust: 100%
+    -moz-osx-font-smoothing: grayscale
+    -webkit-font-smoothing: antialiased
+    box-sizing: border-box
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
+  *,
+  *:before,
+  *:after 
+    box-sizing: border-box
+    margin: 0
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
+  .nav
+    @apply flex justify-center bg-black
+    height: 55px
 
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
+    &__container
+      @apply h-full max-w-xl p-4 flex-grow flex flex-row items-center justify-between
 
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
+    &__logo
+      @apply font-semibold text-xl text-white
+
+    &__links
+      @apply flex items-center flex-grow justify-end
+
+    &__link
+      @apply text-white font-semibold no-underline m-2
+
+      &:hover
+        @apply underline
 </style>
