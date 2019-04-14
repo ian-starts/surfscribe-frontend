@@ -13,4 +13,4 @@ steps:
     args: ['-m', 'cp', '-r', 'dist/*', 'gs://surfscribe-frontend/static']
   - name: 'gcr.io/cloud-builders/gsutil'
     id: 'Make public'
-    args: ['acl', 'ch', '-r', '-u', 'AllUsers:R', 'gs://surfscribe-frontend/static/*']
+    args: ['acl', 'ch', '-r', '-u', 'AllUsers:R', 'gs://surfscribe-frontend/static']
