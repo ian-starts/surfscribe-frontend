@@ -7,10 +7,10 @@ steps:
     args: ['run', 'generate']
   - name: 'gcr.io/cloud-builders/gsutil'
     id: 'remove old bucket'
-    args: ['rm', '-r', 'gs://surfscribe-frontend/']
+    args: ['m','rm', '-r', 'gs://surfscribe-frontend/**']
   - name: 'gcr.io/cloud-builders/gsutil'
     id: 'upload to bucket'
-    args: ['-m', 'cp', '-r', 'dist/*', 'gs://surfscribe-frontend/**']
+    args: ['-m', 'cp', '-r', 'dist/*', 'gs://surfscribe-frontend']
   - name: 'gcr.io/cloud-builders/gsutil'
     id: 'Make public'
     args: ['acl', 'ch', '-r', '-u', 'AllUsers:R', 'gs://surfscribe-frontend']
