@@ -7,7 +7,7 @@ steps:
     args: ['run', 'generate']
   - name: 'gcr.io/cloud-builders/gsutil'
     id: 'remove old bucket'
-    args: ['-m','rm', '-r', 'gs://surfscribe-frontend/**', '-a']
+    args: ['rm', '-r', '-a', 'gs://surfscribe-frontend/**']
   - name: 'gcr.io/cloud-builders/gsutil'
     id: 'upload to bucket'
     args: ['-m', 'cp', '-r', 'dist/*', 'gs://surfscribe-frontend']
