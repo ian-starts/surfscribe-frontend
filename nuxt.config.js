@@ -59,6 +59,10 @@ export default {
     // Options, see https://auth.nuxtjs.org
   },
 
+  env: {
+    // baseUrl: process.env.BASE_URL || 'http://35.187.169.252',
+  },
+
   /*
   ** Build configuration
   */
