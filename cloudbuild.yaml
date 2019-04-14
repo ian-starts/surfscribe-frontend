@@ -1,7 +1,7 @@
 steps:
   - name: 'gcr.io/cloud-builders/gsutil'
     id: 'remove old bucket'
-    args: ['rm', '-r', '-a', 'gs://surfscribe-frontend/**']
+    args: ['rm', '-r', 'gs://surfscribe-frontend/**']
   - name: 'gcr.io/cloud-builders/npm'
     id: 'Install js deps'
     args: ['install']
