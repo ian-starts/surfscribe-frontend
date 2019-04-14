@@ -14,6 +14,16 @@ import AppSurfCard from '~/components/AppSurfCard.vue'
 export default {
   components: {
     AppSurfCard
+  },
+  methods: {
+    login () {
+      this.$auth.loginWith('local', {
+        data: {
+          username: 'your_username',
+          password: 'your_password'
+        }
+      })
+    }
   }
 }
 </script>
