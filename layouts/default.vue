@@ -12,6 +12,8 @@
 
 
 <style lang="sass">
+  $nav-height: 55px
+
   html
     font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif
     font-size: 16px
@@ -28,9 +30,12 @@
     box-sizing: border-box
     margin: 0
 
+  .site
+    padding-top: $nav-height
+
   .nav
-    @apply flex justify-center bg-black
-    height: 55px
+    @apply fixed pin-t w-full flex justify-center bg-black
+    height: $nav-height
 
     &__container
       @apply h-full max-w-xl p-4 flex-grow flex flex-row items-center justify-between
