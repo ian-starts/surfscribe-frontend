@@ -9,10 +9,10 @@
       )
     .info-panel
       .max-w-xl.m-auto.p-4.text-white( v-if="selectedLocation" )
-        h1.text-5xl {{selectedLocation['wave_break']}}
+        h1.text-5xl {{selectedLocation['waveBreak']}}
         p.text-sm.font-light
-          span.text-red.font-bold {{selectedLocation['country_name']}} 
-          | // {{selectedLocation['region_name']}}
+          span.text-red.font-bold {{selectedLocation['countryName']}} 
+          | // {{selectedLocation['regionName']}}
         br
         h2.font-bold.text-sm( style="line-height: 1.7em;" ) Description
         p.text-sm.font-light( style="max-width: 360px; line-height: 1.3em;" ) {{selectedLocation['description']}}
