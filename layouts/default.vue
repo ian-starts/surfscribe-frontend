@@ -2,8 +2,7 @@
   .site
     nav.nav
       .nav__container
-        .nav__logo
-          | SS
+        a.nav__logo( href="/" ) SS
         .nav__links
           a.nav__link( href="/my-spots" ) My Spots
           a.nav__link( href="/account" ) Account
@@ -41,7 +40,7 @@
       @apply h-full max-w-xl p-4 flex-grow flex flex-row items-center justify-between
 
     &__logo
-      @apply font-semibold text-xl text-white
+      @apply font-semibold text-xl text-white no-underline
 
     &__links
       @apply flex items-center flex-grow justify-end

@@ -32,7 +32,6 @@ export default {
   },
   created () {
     this.$store.dispatch('locations/getLocations')
-    console.log(this.$store.state)
   },
   computed: {
     locations () {
