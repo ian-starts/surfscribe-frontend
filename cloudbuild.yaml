@@ -1,0 +1,13 @@
+steps:
+  - name: 'gcr.io/cloud-builders/npm'
+    id: 'Install js deps'
+    args: ['install']
+  - name: 'gcr.io/cloud-builders/npm'
+    id: 'Generate nuxt files'
+    args: ['run', 'generate']
+  - name: 'gcr.io/cloud-builders/gsutil'
+    id: 'upload to bucket'
+    args: ['-m', 'rsync', '-R', 'dist', 'gs://surfscribe.me']
+  - name: 'gcr.io/cloud-builders/gsutil'
+    id: 'Make public'
+    args: ['acl', 'ch', '-r', '-u', 'AllUsers:R', 'gs://surfscribe.me']
