@@ -42,6 +42,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/proxy',
     '@nuxtjs/pwa',
     '@nuxtjs/auth',
   ],
@@ -50,6 +51,11 @@ export default {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    proxy: true,
+  },
+
+  proxy: {
+    '/api': { target: 'http://127.0.0.1:5000/' }
   },
 
   /*
