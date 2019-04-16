@@ -8,6 +8,3 @@ steps:
   - name: 'gcr.io/cloud-builders/gsutil'
     id: 'upload to bucket'
     args: ['-m', 'rsync', '-R', 'dist', 'gs://surfscribe.me']
-  - name: 'gcr.io/cloud-builders/gsutil'
-    id: 'Make public'
-    args: ['acl', 'ch', '-r', '-u', 'AllUsers:R', 'gs://surfscribe.me']
