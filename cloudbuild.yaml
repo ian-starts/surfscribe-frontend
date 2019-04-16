@@ -1,7 +1,7 @@
 steps:
   - name: 'gcr.io/cloud-builders/npm'
     id: 'Install js deps'
-    args: ['install', '--only=prod']
+    args: ['install']
   - name: 'gcr.io/cloud-builders/npm'
     id: 'Generate nuxt files'
     args: ['run', 'generate']
