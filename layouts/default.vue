@@ -5,7 +5,9 @@
         a.nav__logo( href="/" ) SS
         .nav__links
           a.nav__link( href="/my-spots" ) My Spots
-          a.nav__link( href="/account" ) Account
+          template
+            a.nav__link( v-if="$store.state.auth.loggedIn" href="/account" ) Account
+            a.nav__link( v-else href="/login" ) Login
     nuxt
 </template>
 
