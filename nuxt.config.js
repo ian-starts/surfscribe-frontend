@@ -54,6 +54,10 @@ export default {
     proxy: true,
   },
 
+  /*
+  ** Proxy plugin congig
+  */
+
   proxy: {
     '/api': { target: 'http://127.0.0.1:5000/' }
   },
@@ -67,6 +71,10 @@ export default {
 
   env: {
     // baseUrl: process.env.BASE_URL || 'http://35.187.169.252',
+  },
+
+  generate: {
+    fallback: "404.html"
   },
 
   /*
