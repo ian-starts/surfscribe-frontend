@@ -65,7 +65,7 @@ export default {
 
 .page-header
   @apply w-full relative overflow-hidden
-  padding-top: 92% // object height relative to width
+  padding-top: 92% // object height relative to it's width
 
   &__video
     @apply absolute pin h-full
