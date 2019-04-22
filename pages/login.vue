@@ -1,7 +1,10 @@
 <template lang="pug">
   main.main
     .login-container
-      img.page-header( src="./login/assets/header-cutout.svg" alt="Login" )
+      .page-header
+        video.page-header__video( loop="" autoplay="" muted="" )
+          source( src="/wave-background.mp4" type="video/mp4" )
+        img.page-header__overlay( src="./login/assets/header-cutout.svg" alt="Login" )
       p.paragraph Login to surfscribe, haven't got an account yet? Sign up 
         router-link.link( to="{ name: 'signup'}" ) here
         | .
@@ -61,10 +64,16 @@ export default {
   @apply text-5xl font-black p-2
 
 .page-header
-  @apply w-full
-  background-image: linear-gradient(225deg, rgba(0,0,0,0.00) 0%, rgba(29,29,29,0.00) 28%, rgba(49,49,49,0.53) 63%, rgba(0,0,0,0.29) 100%), url("../assets/img/ocean-bg.jpg")
-  background-size: 400% 400%, cover
-  animation: Gradient 15s ease infinite
+  @apply w-full relative overflow-hidden
+  padding-top: 90% // object height relative to width
+
+  &__video
+    @apply absolute pin h-full
+    object-fit: cover
+  
+  &__overlay
+    @apply absolute pin w-full
+    object-fit: cover
 
 .paragraph
   @apply text-sm font-light leading-tight py-2
