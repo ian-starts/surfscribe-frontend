@@ -3,17 +3,15 @@
     .login-container
       .page-header
         video.page-header__video( loop="" autoplay="" muted="" )
-          source( src="/wave-background.mp4" type="video/mp4" )
-        img.page-header__overlay( src="./login/assets/header-cutout.svg" alt="Login" )
-      p.paragraph Login to surfscribe, haven't got an account yet? Sign up 
-        router-link.link( :to="{name: 'signup'}" ) here
+          source( src="/break-background.mp4" type="video/mp4" )
+        img.page-header__overlay( src="./signup/assets/header-cutout.svg" alt="Sign up" )
+      p.paragraph Sign up to surfscribe, already have an account? Login 
+        router-link.link( to="{ name: 'login'}" ) here
         | .
-      form.login-form( @submit.prevent="loginUser" )
+      form.login-form( @submit.prevent="registerUser" )
         AppInput.my-4( v-model="email" type="email" placeholder="email" )
         AppInput.my-4( v-model="password" type="password" placeholder="password" )
         .error-text( v-if="error" ) {{error}}
-        // div
-          a.link.password-reset( href="#") Forgot password
         button( type="submit" ) Submit
 </template>
 
@@ -36,18 +34,10 @@ export default {
   computed: {
   },
   methods: {
-    loginUser () {
-      return this.$auth.loginWith('local', {
-        data: {
-          email: this.email,
-          password: this.password,
-        }
-      })
-        .catch(error => this.error = error.response.data.error)
-    },
-    resetPassword () {
-      return this.$axios.$post('api/auth/request-password-reset', {
-        email: this.email
+    registerUser () {
+      return this.$axios.$post('api/auth/signup', {
+        email: this.email,
+        password: this.password
       })
         .catch(error => this.error = error.response.data.error)
     }
@@ -69,7 +59,7 @@ export default {
 
 .page-header
   @apply w-full relative overflow-hidden
-  padding-top: 92% // object height relative to it's width
+  padding-top: 75% // object height relative to it's width
 
   &__video
     @apply absolute pin h-full
