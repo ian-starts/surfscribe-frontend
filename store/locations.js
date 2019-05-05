@@ -33,7 +33,7 @@ export const mutations = {
 export const actions = {
   getLocations ({ commit }) {
     commit('requestLocations')
-    return this.$axios.$get('api/locations?embeds[]=images')
+    return this.$axios.$get('api/locations')
       .then(({ data }) => commit('receiveLocationsSuccess', { data }))
       .catch(error => (console.error(error), commit('receiveLocationsError', { error })))
   }

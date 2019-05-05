@@ -1,7 +1,7 @@
 <template lang="pug">
   .tag
     .tag__data
-      | {{displayValue}}
+      slot( name="value" )
     .tag__label
       slot( name="label" )
 </template>
@@ -49,7 +49,8 @@ export default {
     @apply text-xs text-center font-normal py-1
 
   &__data
-    @apply text-3xl text-center
+    @apply text-3xl text-center py-3 px-5
     letter-spacing: 1px
-    text-stroke: 2px white
+    background-color: rgba(125,125,125, 0.2)
+    border-radius: 10px
 </style>

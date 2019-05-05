@@ -15,53 +15,90 @@
           p.text-body.py-2
             span.text-red.font-bold {{selectedLocation['countryName']}} 
             | // {{selectedLocation['regionName']}}
+          AppButton( r ).my-2 surfscribe
         // -- Description --
-        .content-section
+        // .content-section
           h2.section-title( style="line-height: 1.7em;" ) Description
           p.text-body {{selectedLocation['description']}}
-        // -- Swell section --
         .content-section
+          // -- Swell section --
+          .flex.py-2
+            .flex.items-center
+              span.day-picker-item(
+                v-for="(val, key) in selectDayOptions"
+                @click="setSelectedForecastDay(key)"
+                :class=`{
+                  'day-picker-item--active': (Number(key) === selectedForecastDay)
+                }`
+              ) 
+                | {{ Number(key) === new Date().getDate() ? 'Today' : key }}
+            AppSelect( v-model="selectedForcastIndex" :options="selectDayOptions[selectedForecastDay]" round )
           h2.section-title Swell
-          p.text-body Swell direction is the direction the swell is coming from, as opposed to the direction it is heading toward.
-          div.flex.justify-between.py-4
-            AppDataTag( :value="selectedForecast.swell.height" )
-              template( #label )
-                span Height 
-            AppDataTag( :value="selectedForecast.swell.period" )
-              template( #label )
+          div.flex.justify-between.py-2
+            .data-tag
+              .data-tag__data
+                span {{ selectedForecast.swell.height }} 
+              .data-tag__label
+                span Height (m)
+            .data-tag
+              .data-tag__data
+                span {{ selectedForecast.swell.period }} 
+              .data-tag__label
                 span Period
-            AppDataTag( :value="selectedForecast.swell.compassDirection" )
-              template( #label )
+            .data-tag
+              .data-tag__data.data-tag__data--square
+                AppCompass( :degrees="selectedForecast.swell.trueDirection" style="height: 42px; min-width: 42px;")
+              .data-tag__label
                 span Direction
-        // -- Wind section --
-        .content-section
+          // -- Wind section --
           h2.section-title Wind
-          p.text-body Wind is the flow of gases on a large scale. On the surface of the Earth, wind consists of the bulk movement of air. 
-          div.flex.justify-between.py-4
-            AppDataTag( :value="selectedForecast.wind.speed" )
-              template( #label )
-                span Speed 
-            AppDataTag( :value="selectedForecast.wind.compassDirection" )
-              template( #label )
+          div.flex.justify-between.py-2
+            .data-tag
+              .data-tag__data
+                span {{ selectedForecast.wind.speed }} 
+              .data-tag__label
+                span Speed ({{ selectedForecast.wind.unit }})
+            .data-tag.px-4
+              .data-tag__data.data-tag__data--square
+                AppCompass( :degrees="selectedForecast.wind.trueDirection" style="height: 42px; min-width: 42px;")               
+              .data-tag__label
                 span Direction
-            AppDataTag( :value="selectedForecast.wind.gusts" )
-              template( #label )
-                span Gusts
+            .data-tag
+              .data-tag__data
+                span {{ selectedForecast.wind.gusts }} 
+              .data-tag__label
+                span Gusts ({{ selectedForecast.wind.unit }})
+        .content-section
+          iframe.rounded-lg.my-4(
+            height="260px"
+            :src="windyLocationWidgetSrc"
+            frameborder="0"
+          )
 </template>
 
 <script>
+import groupBy from 'lodash/groupBy'
+
 import AppSurfCard from '@/components/AppSurfCard.vue'
 import AppDataTag from '@/components/AppDataTag.vue'
+import AppButton from '@/components/AppButton.vue'
+import AppSelect from '@/components/AppSelect.vue'
+import AppCompass from '@/components/AppCompass.vue'
 
 export default {
   components: {
     AppSurfCard,
     AppDataTag,
+    AppButton,
+    AppSelect,
+    AppCompass,
   },
   data () {
     return {
       selectedLocationId: null,
-      forecasts: []
+      forecasts: [],
+      selectedForecastDay: new Date().getDate(),
+      selectedForcastIndex: 0,
     }
   },
   created () {
@@ -75,12 +112,32 @@ export default {
       return this.locations.find(location => location.id === this.selectedLocationId) || this.locations[0] || null
     },
     selectedForecast () {
-      return this.forecasts[0] || null
+      return this.forecasts[this.selectedForcastIndex] || null
+    },
+    selectDayOptions () {
+      const forecast = this.forecasts.map((fc, i) => {
+        return {
+          day: new Date(fc.localTimestamp * 1000).getDate(),
+          title: (str => `${str.slice(17,21)}`)(new Date(fc.localTimestamp * 1000).toString()),
+          value: i,
+        }
+      })
+        .filter(fc => fc.day < (new Date().getDate() + 5))
+
+      return groupBy(forecast, 'day')
+    },
+    windyLocationWidgetSrc () {
+      return `https://embed.windy.com/embed2.html?lat=${this.selectedLocation.latitude}&lon=${this.selectedLocation.longitude}&zoom=5&level=surface&overlay=wind&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=47.609&detailLon=-122.331&metricWind=default&metricTemp=default&radarRange=-1`
     }
   },
   methods: {
     setSelectedLocation (id) {
       this.selectedLocationId = id
+    },
+    setSelectedForecastDay (date) {
+      this.selectedForecastDay = Number(date)
+      // reset selected forcast
+      this.selectedForcastIndex = this.selectDayOptions[this.selectedForecastDay][0].value
     },
     getCoverImage(location) {
       try {
@@ -97,7 +154,6 @@ export default {
   watch: {
     selectedLocation (val) {
       this.fetchForecasts()
-      console.log(this.selectedForecast)
     }
   }
 }
@@ -111,18 +167,48 @@ export default {
   @apply min-h-screen w-full flex flex-wrap content-start
 
 .section-title
-  @apply font-bold text-sm mb-2
+  @apply font-bold text-sm
 
 .text-body
   @apply text-sm font-light leading-tight
 
 .info-panel
-  @apply fixed pin-b w-full h-64 bg-black overflow-x-scroll
+  @apply fixed pin-b w-full bg-black overflow-x-scroll
+  height: 380px
 
   &__content
-    @apply m-auto px-6 py-4 text-white flex flex-wrap
+    @apply m-auto max-w-xl px-6 py-4 text-white flex flex-wrap
 
 .content-section
   @apply p-4
-  width: 340px
+  width: 19rem
+
+.day-picker-item
+  @apply text-xs font-bold border-2 border-white rounded-full py-1 px-2 mx-1 cursor-pointer
+
+  &:first-child
+    @apply ml-0
+
+  &:hover
+    @apply bg-white text-black
+
+  &--active
+    @apply bg-white text-black
+
+.data-tag
+  @apply block font-bold
+
+  &__label
+    @apply text-xs text-center font-normal py-1
+
+  &__data
+    @apply text-3xl text-center flex items-center justify-center
+    width: 64px
+    height: 58px
+
+    background-color: rgba(125,125,125, 0.2)
+    border-radius: 10px
+
+    &--square
+      @apply px-4
 </style>
