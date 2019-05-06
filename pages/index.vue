@@ -22,7 +22,7 @@
           p.text-body {{selectedLocation['description']}}
         .content-section
           // -- Swell section --
-          .flex.py-2
+          .flex.justify-between.py-2
             .flex.items-center
               span.day-picker-item(
                 v-for="(val, key) in selectDayOptions"
@@ -69,7 +69,7 @@
               .data-tag__label
                 span Gusts ({{ selectedForecast.wind.unit }})
         .content-section
-          iframe.rounded-lg.my-4(
+          iframe.rounded-lg.my-4.w-full(
             height="260px"
             :src="windyLocationWidgetSrc"
             frameborder="0"
@@ -180,7 +180,7 @@ export default {
     @apply m-auto max-w-xl px-6 py-4 text-white flex flex-wrap
 
 .content-section
-  @apply p-4
+  @apply p-4 flex-grow
   width: 19rem
 
 .day-picker-item
