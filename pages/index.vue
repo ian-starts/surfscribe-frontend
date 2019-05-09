@@ -101,9 +101,6 @@ export default {
       selectedForcastIndex: 0,
     }
   },
-  created () {
-    this.$store.dispatch('locations/getLocations')
-  },
   computed: {
     locations () {
       return this.$store.state.locations.locations

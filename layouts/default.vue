@@ -3,6 +3,7 @@
     nav.nav
       .nav__container
         a.nav__logo( href="/" ) SS
+        AppInput.mx-6.my-2( v-model="query" )
         .nav__links
           a.nav__link( href="/my-spots" ) My Spots
           template
@@ -10,6 +11,29 @@
             a.nav__link( v-else href="/login" ) Login
     nuxt
 </template>
+
+<script>
+import AppInput from '@/components/AppInput.vue'
+
+export default {
+  components: {
+    AppInput
+  },
+  data () {
+    return {
+      query: ''
+    }
+  },
+  watch: {
+    query: {
+      immediate: true,
+      handler () {
+        this.$store.dispatch('locations/getLocations', { query: this.query })
+      }
+    }
+  }
+}
+</script>
 
 
 <style lang="sass">
