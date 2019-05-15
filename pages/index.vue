@@ -124,7 +124,7 @@ export default {
       return groupBy(forecast, 'day')
     },
     windyLocationWidgetSrc () {
-      return `https://embed.windy.com/embed2.html?lat=${this.selectedLocation.latitude}&lon=${this.selectedLocation.longitude}&zoom=5&level=surface&overlay=swell&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=47.609&detailLon=-122.331&metricWind=default&metricTemp=default&radarRange=-1`
+      return `https://embed.windy.com/embed2.html?lat=${this.selectedLocation.latitude}&lon=${this.selectedLocation.longitude}&zoom=5&level=surface&overlay=swell1&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=47.267&detailLon=11.400&metricWind=default&metricTemp=default&radarRange=-1`
     }
   },
   methods: {
