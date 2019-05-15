@@ -13,7 +13,7 @@
         .content-section
           h1.text-5xl.font-black {{selectedLocation['waveBreak']}}
           p.text-body.py-2
-            span.text-red.font-bold {{selectedLocation['countryName']}} 
+            span.text-red.font-bold {{selectedLocation['countryName']}}
             | // {{selectedLocation['regionName']}}
           AppButton( r ).my-2 surfscribe
         // -- Description --
@@ -30,19 +30,19 @@
                 :class=`{
                   'day-picker-item--active': (Number(key) === selectedForecastDay)
                 }`
-              ) 
+              )
                 | {{ Number(key) === new Date().getDate() ? 'Today' : key }}
             AppSelect( v-model="selectedForcastIndex" :options="selectDayOptions[selectedForecastDay]" round )
           h2.section-title Swell
           div.flex.justify-between.py-2
             .data-tag
               .data-tag__data
-                span {{ selectedForecast.swell.height }} 
+                span {{ selectedForecast.swell.height }}
               .data-tag__label
                 span Height (m)
             .data-tag
               .data-tag__data
-                span {{ selectedForecast.swell.period }} 
+                span {{ selectedForecast.swell.period }}
               .data-tag__label
                 span Period
             .data-tag
@@ -55,17 +55,17 @@
           div.flex.justify-between.py-2
             .data-tag
               .data-tag__data
-                span {{ selectedForecast.wind.speed }} 
+                span {{ selectedForecast.wind.speed }}
               .data-tag__label
                 span Speed ({{ selectedForecast.wind.unit }})
             .data-tag.px-4
               .data-tag__data.data-tag__data--square
-                AppCompass( :degrees="selectedForecast.wind.trueDirection" style="height: 42px; min-width: 42px;")               
+                AppCompass( :degrees="selectedForecast.wind.trueDirection" style="height: 42px; min-width: 42px;")
               .data-tag__label
                 span Direction
             .data-tag
               .data-tag__data
-                span {{ selectedForecast.wind.gusts }} 
+                span {{ selectedForecast.wind.gusts }}
               .data-tag__label
                 span Gusts ({{ selectedForecast.wind.unit }})
         .content-section
@@ -124,7 +124,7 @@ export default {
       return groupBy(forecast, 'day')
     },
     windyLocationWidgetSrc () {
-      return `https://embed.windy.com/embed2.html?lat=${this.selectedLocation.latitude}&lon=${this.selectedLocation.longitude}&zoom=5&level=surface&overlay=wind&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=47.609&detailLon=-122.331&metricWind=default&metricTemp=default&radarRange=-1`
+      return `https://embed.windy.com/embed2.html?lat=${this.selectedLocation.latitude}&lon=${this.selectedLocation.longitude}&zoom=5&level=surface&overlay=swell&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=47.609&detailLon=-122.331&metricWind=default&metricTemp=default&radarRange=-1`
     }
   },
   methods: {
@@ -138,7 +138,7 @@ export default {
     },
     getCoverImage(location) {
       try {
-        return location.images[0].dimensions.full.url
+        return location.images[0].dimensions.medium.url
       } catch {
         return ''
       }
