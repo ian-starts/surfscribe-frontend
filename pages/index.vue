@@ -39,7 +39,7 @@
               .data-tag__data
                 span {{ selectedForecast.swell.height }}
               .data-tag__label
-                span Height (m)
+                span Height ({{ selectedForecast.swell.unit }})
             .data-tag
               .data-tag__data
                 span {{ selectedForecast.swell.period }}
