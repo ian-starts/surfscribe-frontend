@@ -1,0 +1,20 @@
+version: '3.4'
+services:
+  app:
+    image: yikdev/surfscribe-frontend:v1.0.0
+    networks:
+      - traefik-net
+      - default
+    deploy:
+      replicas: 2
+      labels:
+        - "traefik.docker.network=traefik-net"
+        - "traefik.enable=true"
+        - "traefik.backend.loadbalancer.sticky=false"
+        - "traefik.backend.loadbalancer.swarm=true"
+        - "traefik.basic.frontend.rule=Host: iankok.com, www.iankok.com"
+        - "traefik.basic.port=80"
+        - "traefik.basic.protocol=http"
+networks:
+  traefik-net:
+    external: true
